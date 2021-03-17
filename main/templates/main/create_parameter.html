@@ -1,0 +1,32 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+Добавить параметры
+{% endblock %}
+
+{% block content %}
+    <h1>Добавить параметры</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.date}}<br>
+        {{form.height}}<br>
+        {{form.weight}}<br>
+        {{form.girth_breast}}<br>
+        {{form.girth_waist}}<br>
+        {{form.girth_hips}}<br>
+        {{form.girth_shoulders}}<br>
+        {{form.girth_arm}}<br>
+        {{form.girth_leg}}<br>
+        <p>Выберите марафон</p>{{form.marathon}}<br>
+         <p>Выберите клиента</p>{{form.client}}<br>
+<!--        <input type="text" placeholder="Введите название" class="form-control"><br>-->
+<!--        <input type="date" placeholder="Введите дату" class="form-control"><br>-->
+<!--        <textarea type="text" placeholder="Введите содержание" class="form-control"></textarea><br>-->
+<!--        <textarea type="text" placeholder="Введите комментарий" class="form-control"></textarea><br>-->
+<!--        <input type="text" placeholder="Введите марафон" class="form-control"><br>-->
+<!--        <input type="text" placeholder="Введите фамилию" class="form-control"><br>-->
+        <button type="submit" class="btn btn-info">Добавить</button>
+        <span>{{ error }}</span>
+
+    </form>
+{% endblock %}

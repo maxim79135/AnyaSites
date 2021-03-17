@@ -1,0 +1,25 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <body bgcolor="#000" background="D:\учёба\3_курс\иксис\isis-spa\img">
+    <h1 align="center">Тренировки</h1><br>
+    <form action="/create_workout" target="_blank"><button type="submit" class="btn btn-info" >Добавить</button></form><br>
+    {% if notes %}
+        {% for el in notes %}
+            <div class=" mt-2" align="center" style="background-color: rgba(255, 34, 152, 0.5);">
+                <h3>{{el.title}}</h3>
+                <p>{{el.date}}</p>
+                <p>{{el.description}}</p>
+                <iframe width="840" height="473" src="{{ el.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p>{{el.marathon}}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Записей нет!</p>
+    {% endif %}
+
+{% endblock %}

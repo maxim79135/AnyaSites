@@ -1,0 +1,24 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Дневник питания</h1>
+<form action="/create_diary" target="_blank"><button type="submit" class="btn btn-info">Добавить</button></form>
+    {% if notes %}
+        {% for el in notes %}
+            <div class="alert alert-info mt-2">
+                <h3>{{el.title}}</h3>
+                <p>{{el.date}}</p>
+                <p>{{el.description}}</p>
+                <p style="color: red">{{el.comment}}</p>
+                <p>{{el.client}}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Записей нет!</p>
+    {% endif %}
+
+{% endblock %}
