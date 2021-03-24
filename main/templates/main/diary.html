@@ -4,21 +4,38 @@
 {{ title }}
 {% endblock %}
 
+{% block style %}
+   body {
+        background-image: url("../static/img/1v.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
 {% block content %}
-    <h1>Дневник питания</h1>
-<form action="/create_diary" target="_blank"><button type="submit" class="btn btn-info">Добавить</button></form>
+    <h1 class="custom-colored-h1" align="center">Дневник питания</h1>
+    <a href="/marathon_diary">
+    <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt="">
+     <div align="center"><a href="/create_diary" class="button8">Добавить запись</a></div>
     {% if notes %}
         {% for el in notes %}
-            <div class="alert alert-info mt-2">
-                <h3>{{el.title}}</h3>
-                <p>{{el.date}}</p>
-                <p>{{el.description}}</p>
-                <p style="color: red">{{el.comment}}</p>
-                <p>{{el.client}}</p>
+            <div class="mt-5 slideDown" align="center" style="background-color: rgba(255, 255, 255, 0.75);">
+                <h3 class="title-notes">{{el.title}}</h3>
+                <p type="data" class="data-custom">{{el.date}}</p>
+                <p class="description-custom">{{el.description}}</p>
+                <p class="author">{{el.user.first_name}} {{el.user.last_name}}</p>
+                <p style="color: red" class="font-widht-bolder">{{el.comment}}</p>
+                <a href="{% url 'update_diary' el.id %}" class="button-marathon">Редактировать</a>
+                    {% if request.user.is_superuser != 1 %}
+                        <a href="{% url 'delete_diary' el.id %}" class="button-marathon">Удалить</a>
+                    {% endif %}
+
             </div>
         {% endfor %}
     {% else %}
-        <p>Записей нет!</p>
+        <p align="center" class="mt-4">Записей нет!</p>
     {% endif %}
 
 {% endblock %}

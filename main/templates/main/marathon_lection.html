@@ -1,0 +1,22 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Марафоны</h1>
+<form action="/create_marathon" target="_blank"><button type="submit" class="btn btn-info">Добавить</button></form>
+    {% if notes %}
+        {% for el in notes %}
+            <div class="alert alert-info mt-2">
+                <a href="/diary?id={{el.id}}">{{ el.title }}</a>
+                <p>{{el.date_start}}</p>
+                <p>{{el.date_end}}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p align="center" class="mt-4">Записей нет!</p>
+    {% endif %}
+
+{% endblock %}

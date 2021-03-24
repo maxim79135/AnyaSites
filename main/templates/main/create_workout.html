@@ -4,16 +4,27 @@
 Добавить запись
 {% endblock %}
 
+{% block style %}
+   body {
+        background-image: url("../static/img/6b.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
 {% block content %}
-    <h1>Добавить тренировку</h1>
+    <h1 class="custom-colored-h1" align="center">Тренировка</h1>
     <form method="post">
         {% csrf_token %}
         {{form.title}}<br>
-        {{form.date}}<br>
+        <input type="date"{{form.date}}<br>
         {{form.description}}<br>
         {{form.video}}<br>
         <p>Выберите марафон</p>{{form.marathon}}<br>
-        <button type="submit" class="btn btn-info">Добавить</button>
+        <div align="center"><button type="submit" class="c-button">Добавить</button></div><br>
+        <div align="center"><a href="/workout" class="button8">Назад</a></div>
         <span>{{ error }}</span>
 
     </form>

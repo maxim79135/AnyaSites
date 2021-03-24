@@ -1,0 +1,26 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+Удалить запись
+{% endblock %}
+
+{% block style %}
+   body {
+        background-image: url("../static/img/1b.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
+{% block content %}
+    <h1 class="custom-colored-h1" align="center">Удалить запись</h1><br>
+    <form method="post">
+        {% csrf_token %}
+        <p class="ask-custom">Вы действительно хотите удалить запись?</p>
+        <div align="center"><button type="submit" class="c-button">Удалить</button></div><br>
+        <span>{{ error }}</span>
+
+    </form>
+{% endblock %}
