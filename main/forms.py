@@ -110,10 +110,10 @@ class ParameterForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите марафон'
             }),
-            "user": Select(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите фамилию'
-            }),
+            # "user": Select(attrs={
+            #     'class': 'form-control',
+            #     'placeholder': 'Введите фамилию'
+            # }),
 
         }
 

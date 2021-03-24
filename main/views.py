@@ -19,12 +19,10 @@ def index(request):
     return render(request, 'main/index.html',context)
 
 @login_required
-def parameter(request):
-
+def parameter(request, id):
     search_query=request.GET.get('search')
 
     user_role = request.user.is_superuser
-    id = int(request.GET.get('id'))
     if user_role == 0:
         try:
             parameters=Parameter.objects.order_by('-date').filter(marathon_id=id, user=request.user)
@@ -37,7 +35,7 @@ def parameter(request):
             parameters=Parameter.objects.order_by('-date').filter(marathon_id=id,user__last_name=search_query)
         else:
             parameters = Parameter.objects.order_by('-date').filter(marathon_id=id)
-        return render(request, 'main/parameter.html', {'title': 'Параметры', 'parameters': parameters})
+        return render(request, 'main/parameter.html', {'title': 'Параметры', 'parameters': parameters, 'marathon_id': id})
 
 
 @login_required
@@ -144,7 +142,9 @@ class delete_diary(DeleteView):
 def create_parameter(request):
     error =''
     if request.method == 'POST':
-        form = ParameterForm(request.POST)
+        req_data = request.POST.copy()
+        req_data['user'] = request.user
+        form = ParameterForm(req_data)
         if form.is_valid():
             form.save()
             #return redirect('/parameter')
@@ -152,10 +152,9 @@ def create_parameter(request):
             return render(request, 'main/parameter.html', {'title': 'Параметры', 'parameters': parameters})
         else:
             error ='Заполнено некорректно'
-
     form=ParameterForm()
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'main/create_parameter.html',context)
 
