@@ -22,14 +22,17 @@ def diary(request):
     return render(request, 'main/diary.html',{'title':'Дневник питания','notes':notes})
 
 def workout(request):
-    notes=Workout.objects.order_by('-id')
-    return render(request, 'main/workout.html',{'title':'Тренировки','notes':notes})
+    try:
+        id = int(request.GET.get('id'))
+        notes=Workout.objects.order_by('-id').filter(marathon_id=id)
+        return render(request, 'main/workout.html',{'title':'Тренировки','notes':notes})
+    except:
+        notes=Workout.objects.order_by('-id')
+        return render(request, 'main/workout.html',{'title':'Тренировки','notes':notes})
 
 def marathon(request):
-    id = request.GET.get('id')
-    if id != None:
-        notes=Marathon.objects.order_by('-id').filter(id=id)
-        return render(request, 'main/marathon.html',{'title':'Марафон','notes':notes})
+    notes=Marathon.objects.order_by('-id')
+    return render(request, 'main/marathon.html',{'title':'Марафон','notes':notes})
 
 
 def create_diary(request):

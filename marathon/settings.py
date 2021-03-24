@@ -25,7 +25,7 @@ SECRET_KEY = '$f825tk*)suj6r%k8rkwra&@595unqro=m%u9wcj^@0n8q#gp*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['135.181.233.195']
 
 
 # Application definition
@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'marathon.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'DB_marathon',
-        # 'USER': 'root',
-        # 'PASSWORD': 'root',
-        # 'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'DB_marathon',
+        'USER': 'root',
+        'PASSWORD': 'smdandsid1',
+        'HOST': 'localhost',
     }
 }
 
