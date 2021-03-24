@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 
 class Client(models.Model):
@@ -22,6 +24,41 @@ class Marathon(models.Model):
     def __str__(self):
         return self.title
 
+class Contract(models.Model):
+    date = models.DateField('Дата')
+    marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Клиент')
+
+    def __str__(self):
+        return str(self.date)
+
+
+class Lection(models.Model):
+    title = models.CharField('Название', max_length=30)
+    date = models.DateField('Дата')
+    description = models.TextField('Описание')
+    video = models.CharField('Видео', max_length=500)
+    marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return f'/lection'
+
+
+class Post(models.Model):
+    title = models.CharField('Название', max_length=30)
+    date = models.DateField('Дата')
+    description = models.TextField('Описание')
+    img = models.ImageField('Изображение',default="no_image.jpg", upload_to='site_image')
+    marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return f'/lection'
 
 class Diary(models.Model):
     title = models.CharField('Название',max_length=30)
@@ -29,13 +66,14 @@ class Diary(models.Model):
     description = models.TextField('Описание')
     comment = models.TextField('Комментарий',null=True)
     marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
-    client = models.ForeignKey(Client, null=True, on_delete=models.PROTECT, verbose_name='Клиент')
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Клиент')
+    #client = models.ForeignKey(Client, null=True, on_delete=models.PROTECT, verbose_name='Клиент')
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return f'/'
+        return f'/diary'
 
 class Parameter(models.Model):
     height = models.FloatField('Рост')
@@ -47,14 +85,15 @@ class Parameter(models.Model):
     girth_arm = models.FloatField('Обхват руки')
     girth_leg = models.FloatField('Обхват ноги')
     date = models.DateField('Дата замеров')
-    client = models.ForeignKey(Client, null=True, on_delete=models.PROTECT, verbose_name='Клиент')
+    user = models.ForeignKey(User, on_delete=models.PROTECT,verbose_name='Клиент')
+    #client = models.ForeignKey(Client, null=True, on_delete=models.PROTECT, verbose_name='Клиент')
     marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
 
     def __str__(self):
         return str(self.date)
 
     def get_absolute_url(self):
-        return f'/'
+        return f'/parameter'
 
 class Workout(models.Model):
     title = models.CharField('Название', max_length=30)
@@ -67,5 +106,7 @@ class Workout(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return f'/'
+        return f'/workout'
+
+
 

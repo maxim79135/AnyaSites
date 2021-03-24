@@ -4,23 +4,29 @@
 Добавить запись
 {% endblock %}
 
+{% block style %}
+   body {
+        background-image: url("../static/img/1b.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
 {% block content %}
-    <h1>Добавить запись</h1>
+    <h1 class="custom-colored-h1" align="center">Добавить запись</h1>
     <form method="post">
         {% csrf_token %}
         {{form.title}}<br>
-        {{form.date}}<br>
+        <input type="date"{{form.date}}<br>
         {{form.description}}<br>
         {{form.comment}}<br>
         <p>Выберите марафон</p>{{form.marathon}}<br>
-         <p>Выберите клиента</p>{{form.client}}<br>
-<!--        <input type="text" placeholder="Введите название" class="form-control"><br>-->
-<!--        <input type="date" placeholder="Введите дату" class="form-control"><br>-->
-<!--        <textarea type="text" placeholder="Введите содержание" class="form-control"></textarea><br>-->
-<!--        <textarea type="text" placeholder="Введите комментарий" class="form-control"></textarea><br>-->
-<!--        <input type="text" placeholder="Введите марафон" class="form-control"><br>-->
-<!--        <input type="text" placeholder="Введите фамилию" class="form-control"><br>-->
-        <button type="submit" class="btn btn-info">Добавить</button>
+         {{form.user}}<br>
+
+        <div align="center"><button type="submit" class="c-button">Добавить</button></div><br>
+        <div align="center"><a href="/diary" class="button8">Назад</a></div><br>
         <span>{{ error }}</span>
 
     </form>

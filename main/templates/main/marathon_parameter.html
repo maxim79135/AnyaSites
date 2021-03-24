@@ -1,0 +1,34 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block style %}
+   body {
+        background-image: url("../static/img/10v.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
+{% block content %}
+
+
+    <h1 class="custom-colored-h1" align="center" >Доступные марафоны</h1>
+<div align="center"><a href="/create_parameter" class="button-marathon">Добавить параметры</a></div>
+    {% if notes %}
+        {% for el in notes %}
+            <div class="mt-5 slideDown marathon-style" align="center"  style="background-color: rgba(205, 38, 130, 0.6);">
+                <a class="marathon-text-style"  href="/parameter?id={{el.id}}">{{ el.title }}</a>
+                <p class="marathon-data-style">{{el.date_start}} - {{el.date_end}}</p>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p align="center" class="mt-4">Записей нет!</p>
+    {% endif %}
+
+{% endblock %}

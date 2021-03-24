@@ -1,0 +1,31 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+Добавить запись
+{% endblock %}
+
+{% block style %}
+   body {
+        background-image: url("../static/img/6b.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
+{% block content %}
+    <h1 class="custom-colored-h1" align="center">Лекция</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.title}}<br>
+        <input type="date"{{form.date}}<br>
+        {{form.description}}<br>
+        {{form.video}}<br>
+        <p>Выберите марафон</p>{{form.marathon}}<br>
+        <div align="center"><button type="submit" class="c-button">Добавить</button></div><br>
+        <div align="center"><a href="/lection" class="button8">Назад</a></div>
+        <span>{{ error }}</span>
+
+    </form>
+{% endblock %}

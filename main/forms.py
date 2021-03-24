@@ -1,7 +1,12 @@
-from .models import Diary
-from .models import Parameter
-from .models import Workout
 from django.forms import ModelForm,TextInput,Textarea,Select,DateInput
+from django import forms
+from .models import *
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms.fields import DateField
+
+class TitleChoiceField(forms.Form):
+
+        марафон = forms.ModelChoiceField(queryset=Marathon.objects.values_list("title", flat=True).distinct(),empty_label=None)
 
 class WorkoutForm(ModelForm):
     class Meta:
@@ -31,10 +36,38 @@ class WorkoutForm(ModelForm):
 
         }
 
+class LectionForm(ModelForm):
+    class Meta:
+        model=Lection
+        fields=["title","date","description","video","marathon"]
+        widgets = {
+            "title": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название'
+            }),
+            "date": DateInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите дату'
+            }),
+            "description": Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите описание'
+            }),
+            "video": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите ссылку на видео'
+            }),
+            "marathon": Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите марафон'
+            }),
+
+        }
+
 class ParameterForm(ModelForm):
     class Meta:
         model = Parameter
-        fields = ["date", "height", "weight", "girth_breast", "girth_waist", "girth_hips","girth_shoulders","girth_arm","girth_leg","marathon","client"]
+        fields = ["date", "height", "weight", "girth_breast", "girth_waist", "girth_hips","girth_shoulders","girth_arm","girth_leg","marathon","user"]
         widgets = {
             "date": DateInput(attrs={
                 'class': 'form-control',
@@ -77,7 +110,7 @@ class ParameterForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите марафон'
             }),
-            "client": Select(attrs={
+            "user": Select(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите фамилию'
             }),
@@ -87,7 +120,7 @@ class ParameterForm(ModelForm):
 class DiaryForm(ModelForm):
     class Meta:
         model=Diary
-        fields=["title","date","description","comment","marathon","client"]
+        fields=["title","date","description","comment","marathon","user"]
         widgets = {
             "title": TextInput(attrs={
                 'class': 'form-control',
@@ -109,7 +142,7 @@ class DiaryForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите марафон'
             }),
-            "client": Select(attrs={
+            "user": Select(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите фамилию'
             }),

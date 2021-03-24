@@ -1,48 +1,76 @@
 {% extends 'main/base_.html' %}
 
 {% block title %}
-Страница про нас
+Параметры
+{% endblock %}
+
+{% block style %}
+   body {
+        background-image: url("../static/img/2v.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
 {% endblock %}
 
 {% block content %}
-    <h1>Параметры</h1>
-    <form action="/create_parameter" target="_blank"><button type="submit" class="btn btn-info">Добавить параметры</button></form><br>
+    <h1 class="custom-colored-h1" align="center" >Параметры</h1>
+    <a href="/marathon_parameter">
+        <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt=""><div align="center"><br>
+            <a href="/create_parameter" class="button8">Добавить</a></div><br>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-sm">
-            <thead>
-            <tr>
-                <th>Дата</th>
-                <th>Рост</th>
-                <th>Вес</th>
-                <th>Обхват груди</th>
-                <th>Обхват талии</th>
-                <th>Обхват бёдер</th>
-                <th>Обхват плеч</th>
-                <th>Обхват руки</th>
-                <th>Обхват ноги</th>
-                <th>Клиент</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for el in parameters %}
-            <tr>
-                <td>{{ el.date }}</td>
-                <td>{{ el.height }}</td>
-                <td>{{ el.weight }}</td>
-                <td>{{ el.girth_breast }}</td>
-                <td>{{ el.girth_waist }}</td>
-                <td>{{ el.girth_hips }}</td>
-                <td>{{ el.girth_shoulders }}</td>
-                <td>{{ el.girth_arm }}</td>
-                <td>{{ el.girth_leg }}</td>
-                <td>{{ el.client }}</td>
-            </tr>
-            {% endfor %}
+        {% if request.user.is_superuser == 1 %}
+        <form class="form-inline my-2 my-lg-e" action="{% url 'parameter' %}">
+            <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="Search" name="search">
+                   <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск</button>
+        </form>
+        {% endif %}
 
-            </tbody>
-        </table>
-    </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-striped table-m table-hover">
+                    <thead>
+                    <tr>
+                        <th class="table-title">Дата</th>
+                        <th class="table-title">Рост</th>
+                        <th class="table-title">Вес</th>
+                        <th class="table-title">Обхват груди</th>
+                        <th class="table-title">Обхват талии</th>
+                        <th class="table-title">Обхват бёдер</th>
+                        <th class="table-title">Обхват плеч</th>
+                        <th class="table-title">Обхват руки</th>
+                        <th class="table-title">Обхват ноги</th>
+                        <th class="table-title">Клиент</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for el in parameters %}
+                        <tr>
+                            {% if request.user.is_superuser == 0 %}
+                            <td><a href="{% url 'update_parameter' el.id %}" class="table-data">{{ el.date }}</a></td>
+                            {% endif %}
+                            {% if request.user.is_superuser == 1 %}
+                            <td>{{ el.date }}</td>
+                            {% endif %}
+                            <td>{{ el.height }}</td>
+                            <td>{{ el.weight }}</td>
+                            <td>{{ el.girth_breast }}</td>
+                            <td>{{ el.girth_waist }}</td>
+                            <td>{{ el.girth_hips }}</td>
+                            <td>{{ el.girth_shoulders }}</td>
+                            <td>{{ el.girth_arm }}</td>
+                            <td>{{ el.girth_leg}}</td>
+                            <td>{{ el.user.first_name}} {{ el.user.last_name}}</td>
+                            {% if request.user.is_superuser != 1 %}
+                            <td><a href="{% url 'delete_parameter' el.id %}" class="button-marathon">Удалить</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
 {% endblock %}
 

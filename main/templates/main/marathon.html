@@ -10,7 +10,7 @@
     {% if notes %}
         {% for el in notes %}
             <div class="alert alert-info mt-2">
-                <a href="/workout">{{ el.title }}</a>
+                <a href="/workout?id={{el.id}}">{{ el.title }}</a>
                 <p>{{el.date_start}}</p>
                 <p>{{el.date_end}}</p>
             </div>
