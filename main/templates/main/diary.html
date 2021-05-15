@@ -28,7 +28,7 @@
     <a href="/marathon_diary">
     <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt="">
         {% if request.user.is_superuser != 1 %}
-            <div align="center"><a href="/create_diary" class="button8">Добавить запись</a></div>
+            <div align="center"><a href="create_diary/{{marathon_id}}" class="button8">Добавить запись</a></div>
         {% else %}
             <div align="center"><a href="">.</a></div>
         {% endif %}

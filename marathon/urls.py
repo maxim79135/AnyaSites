@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('diary/<int:id>', views.diary),
+    path('create_diary/<int:id>', views.create_diary),
     path('parameter/<int:id>', views.parameter),
 
 ]

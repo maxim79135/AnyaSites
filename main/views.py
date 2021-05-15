@@ -177,14 +177,16 @@ def upload_pic(request):
     return HttpResponseForbidden('allowed only via POST')
 
 @login_required
-def create_diary(request):
+def create_diary(request, id):
 
     error =''
     if request.method == 'POST':
         #form = DiaryForm(request.POST)
+        id_marathon = request.GET["id"]
         req_data = request.POST.copy()
         req_data['user'] = request.user
-        req_data['marathon'] = request.marathon
+        req_data['marathon'] = id_marathon
+        # print(req_data)
         form = DiaryForm(req_data)
 
         if form.is_valid():
