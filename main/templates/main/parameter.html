@@ -18,10 +18,15 @@
     <h1 class="custom-colored-h1" align="center" >Параметры</h1>
     <a href="/marathon_parameter">
         <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt=""><div align="center"><br>
-            <a href="/create_parameter" class="button8">Добавить</a></div><br>
+            {% if request.user.is_superuser != 1 %}
+                <div align="center"><a href="/create_parameter" class="button8">Добавить параметры</a><br></div><br>
+            {% else %}
+                <div align="center"><a href="">.</a></div>
+            {% endif %}
 
         {% if request.user.is_superuser == 1 %}
-        <form class="form-inline my-2 my-lg-e" action="{% url 'parameter' %}">
+        <form class="form-inline my-2 my-lg-e" action="/parameter/{{marathon_id}}">
+
             <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="Search" name="search">
                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск</button>
         </form>

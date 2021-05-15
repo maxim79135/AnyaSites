@@ -1,7 +1,7 @@
 {% extends 'main/base_.html' %}
 
 {% block title %}
-Добавить параметры
+Параметры
 {% endblock %}
 
 {% block style %}
@@ -19,6 +19,7 @@
     <h1 class="custom-colored-h1" align="center">Параметры</h1>
     <form method="post">
         {% csrf_token %}
+        <span class="error">{{ error }}</span><br>
         <input type="date"{{form.date}}<br>
         {{form.height}}<br>
         {{form.weight}}<br>
@@ -29,10 +30,10 @@
         {{form.girth_arm}}<br>
         {{form.girth_leg}}<br>
         <p>Выберите марафон</p>{{form.marathon}}<br>
-        <!-- <p>Выберите клиента</p>{{form.user}}<br> -->
-        <div align="center"><button type="submit" class="c-button">Добавить</button></div><br>
-        <div align="center"><a href="/parameter?id={{el.id}}" class="button8">Назад</a></div><br>
-        <span>{{ error }}</span>
+<!--        <p>Выберите клиента</p>{{form.user}}<br>-->
+        <div align="center"><button type="submit" class="c-button">Сохранить</button></div><br>
+<!--        <div align="center"><a href="/parameter?id={{el.id}}" class="button8">Назад</a></div><br>-->
+
 
     </form>
 {% endblock %}

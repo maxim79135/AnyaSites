@@ -51,7 +51,8 @@ class Post(models.Model):
     title = models.CharField('Название', max_length=30)
     date = models.DateField('Дата')
     description = models.TextField('Описание')
-    img = models.ImageField('Изображение',default="no_image.jpg", upload_to='site_image')
+    # img = models.ImageField('Изображение',default="no_image.jpg", upload_to='static')
+    img = models.CharField('Видео', max_length=500)
     marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
 
     def __str__(self):
@@ -63,9 +64,12 @@ class Post(models.Model):
 class Diary(models.Model):
     title = models.CharField('Название',max_length=30)
     date = models.DateField('Дата')
-    description = models.TextField('Описание')
-    comment = models.TextField('Комментарий',null=True)
-    marathon = models.ForeignKey(Marathon, null=True, on_delete=models.PROTECT, verbose_name='Марафон')
+    breakfast = models.TextField('Завтрак', null=True, blank=True)
+    lunch = models.TextField('Обед', null=True, blank=True)
+    dinner = models.TextField('Ужин', null=True, blank=True)
+    snack = models.TextField('Перекус', null=True, blank=True)
+    comment = models.TextField('Комментарий', null=True, blank=True)
+    marathon = models.ForeignKey(Marathon, on_delete=models.PROTECT, verbose_name='Марафон')
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Клиент')
     #client = models.ForeignKey(Client, null=True, on_delete=models.PROTECT, verbose_name='Клиент')
 

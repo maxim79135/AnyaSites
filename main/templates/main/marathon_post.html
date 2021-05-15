@@ -18,11 +18,13 @@
 
 
     <h1 class="custom-colored-h1" align="center" >Доступные марафоны</h1>
-<div align="center"><a href="/create_diary" class="button-marathon">Добавить запись</a></div>
+    {% if request.user.is_superuser == 1 %}
+     <div align="center"><a href="/create_post" class="button-marathon">Добавить пост</a></div>
+    {%  endif %}
     {% if notes %}
         {% for el in notes %}
             <div class="mt-5 slideDown marathon-style" align="center"  style="background-color: rgba(205, 38, 130, 0.6);">
-                <a class="marathon-text-style"  href="/diary?id={{el.id}}">{{ el.title }}</a>
+                <a class="marathon-text-style"  href="/post?id={{el.id}}">{{ el.title }}</a>
                 <p class="marathon-data-style">{{el.date_start}} - {{el.date_end}}</p>
 
             </div>

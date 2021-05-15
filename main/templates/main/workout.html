@@ -18,7 +18,11 @@
     <h1 class="custom-colored-h1" align="center" >Тренировки</h1>
     <a href="/marathon_workout">
     <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt="">
-     <div align="center"><a href="/create_workout" class="button8">Добавить</a></div>
+        {% if request.user.is_superuser == 1 %}
+            <div align="center"><a href="/create_workout" class="button8">Добавить</a></div>
+        {% else %}
+            <div align="center"><a href="">.</a></div>
+        {% endif %}
     {% if notes %}
         {% for el in notes %}
             <div class="mt-5 slideDown" align="center" style="background-color: rgba(255, 255, 255, 0.75);">
@@ -26,8 +30,10 @@
                 <p class="data-custom">{{el.date}}</p>
                 <p class="description-custom">{{el.description}}</p>
                 <iframe width="750" height="400" src="{{ el.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
-                <a href="{% url 'update_workout' el.id %}" class="button-marathon">Редактировать</a>
-
+                {% if request.user.is_superuser == 1 %}
+                    <a href="{% url 'update_workout' el.id %}" class="button-marathon">Редактировать</a>
+                    <a href="{% url 'delete_workout' el.id %}" class="button-marathon">Удалить</a>
+                {% endif %}
             </div>
         {% endfor %}
     {% else %}

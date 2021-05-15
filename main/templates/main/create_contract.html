@@ -1,0 +1,22 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+Договор
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="custom-colored-h1" align="center">Договор</h1>
+    <form method="post">
+        {% csrf_token %}
+        <span class="error">{{ error }}</span><br>
+        {{form.date}}<br>
+        {{form.user}}<br>
+        {{form.marathon}}<br>
+
+        <div align="center"><button type="submit" class="c-button">Сохранить</button></div><br>
+<!--        <div align="center"><a href="/lection" class="button8">Назад</a></div>-->
+
+
+    </form>
+{% endblock %}

@@ -4,8 +4,19 @@
 Главная
 {% endblock %}
 
+
+{% block style %}
+   body {
+        background-image: url("../static/img/14.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
 {% block content %}
-    <h1>Главная</h1><br>
+    <h1 class="custom-colored-h1" align="center" >Главная страница</h1><br>
 
 
 {% endblock %}

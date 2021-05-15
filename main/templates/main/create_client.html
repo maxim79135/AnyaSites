@@ -1,0 +1,23 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+Клиент
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="custom-colored-h1" align="center">Клиент</h1>
+    <form method="post">
+        {% csrf_token %}
+        <span class="error">{{ error }}</span><br>
+        {{form.last_name}}<br>
+        {{form.first_name}}<br>
+        {{form.username}}<br>
+        {{form.email}}<br>
+        {{form.password}}<br>
+        <div align="center"><button type="submit" class="c-button">Сохранить</button></div><br>
+<!--        <div align="center"><a href="/lection" class="button8">Назад</a></div>-->
+
+
+    </form>
+{% endblock %}

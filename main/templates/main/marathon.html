@@ -4,19 +4,46 @@
 {{ title }}
 {% endblock %}
 
+
+
 {% block content %}
-    <h1>Марафоны</h1>
-<form action="/create_marathon" target="_blank"><button type="submit" class="btn btn-info">Добавить</button></form>
-    {% if notes %}
-        {% for el in notes %}
-            <div class="alert alert-info mt-2">
-                <a href="/workout?id={{el.id}}">{{ el.title }}</a>
-                <p>{{el.date_start}}</p>
-                <p>{{el.date_end}}</p>
+    <h1 class="custom-colored-h1" align="center" >Все марафоны</h1>
+        <div align="center"><a href="/create_marathon" class="button-marathon">Добавить марафон</a></div><br>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-m table-hover">
+                    <thead>
+                    <tr>
+                        <th class="table-title">Название</th>
+                        <th class="table-title">Сроки</th>
+
+                        <th class="table-title">Тренировки</th>
+                        <th class="table-title">Лекции</th>
+                        <th class="table-title">Посты</th>
+                        <th class="table-title">Участники</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for el in notes %}
+                        <tr>
+                            <td><a href="{% url 'update_marathon' el.id %}" class="table-data">{{ el.title }}</a></td>
+                            <td>{{ el.date_start }}-{{ el.date_end }}</td>
+                            <td>{{ el.workout_set.count }}</td>
+                            <td>{{ el.lection_set.count }}</td>
+                            <td>{{ el.post_set.count }}</td>
+                            <td>{{ el.contract_set.count }}</td>
+
+
+<!--                            <td><a href="{% url 'delete_parameter' el.id %}" class="button-marathon">Удалить</a></td>-->
+                        {% endfor %}
+                            {% for el in context %}
+                                 <td>{{ workout_count }}</td>
+                            {% endfor %}
+
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
-        {% endfor %}
-    {% else %}
-        <p>Записей нет!</p>
-    {% endif %}
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'main/base_.html' %}
 
 {% block title %}
-Добавить запись
+Запсь
 {% endblock %}
 
 {% block style %}
@@ -15,19 +15,53 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="custom-colored-h1" align="center">Добавить запись</h1>
+    <h1 class="custom-colored-h1" align="center">Запись</h1>
     <form method="post">
         {% csrf_token %}
-        {{form.title}}<br>
-        <input type="date"{{form.date}}<br>
-        {{form.description}}<br>
-        {{form.comment}}<br>
-        <p>Выберите марафон</p>{{form.marathon}}<br>
-         {{form.user}}<br>
+        <span class="error">{{ error }}</span><br>
+        <div class="form-row">
+            <div class="form-group col-md-10">
+                <label class="table-title">Название</label>
+                {{form.title}}
+            </div>
+            <div class="form-group col-md-2">
+                <label class="table-title">Дата</label>
+                <input type="date"{{form.date}}
+            </div>
+        </div>
 
-        <div align="center"><button type="submit" class="c-button">Добавить</button></div><br>
-        <div align="center"><a href="/diary" class="button8">Назад</a></div><br>
-        <span>{{ error }}</span>
+         <div class="form-row">
+            <div class="form-group col-md-3">
+                <label class="table-title">Завтрак</label>
+                {{form.breakfast}}
+            </div>
+            <div class="form-group col-md-3">
+                <label class="table-title">Обед</label>
+                {{form.lunch}}
+            </div>
+            <div class="form-group col-md-3">
+                <label class="table-title">Ужин</label>
+                {{form.dinner}}
+            </div>
+            <div class="form-group col-md-3">
+                <label class="table-title">Перекус/Прочее</label>
+                {{form.snack}}
+            </div>
+        </div>
+        {% if request.user.is_superuser == 1 %}
+             <div class="form-row">
+                <div class="form-group col-md-12" >
+                    <label class="table-title">Комментарий куратора</label>
+                    {{form.comment}}
+                </div>
+            </div>
+        {% endif %}
+<!--                <p>Выберите марафон</p>{{form.marathon}}<br>-->
+    <!--         <p>Выберите пользователя</p>{{form.user}}<br>-->
+
+        <div align="center"><button type="submit" class="c-button">Сохранить</button></div><br>
+<!--        <div align="center"><a href="/diary" class="button8">Назад</a></div><br>-->
+
 
     </form>
 {% endblock %}

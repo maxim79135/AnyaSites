@@ -6,7 +6,7 @@
 
 {% block style %}
    body {
-        background-image: url("../static/img/6v.jpg");
+        background-image: url("../static/img/11v.jpg");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -16,18 +16,24 @@
 
 {% block content %}
     <h1 class="custom-colored-h1" align="center" >Посты</h1>
-    <a href="/marathon_workout">
+    <a href="/marathon_post">
     <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt="">
-     <div align="center"><a href="/create_workout" class="button8">Добавить</a></div>
+        {% if request.user.is_superuser == 1 %}
+            <div align="center"><a href="/create_post" class="button8">Добавить</a></div><br>
+        {% else %}
+            <div align="center"><a href="">.</a></div>
+        {% endif %}
     {% if posts %}
         {% for el in posts %}
-            <div class="mt-5 slideDown" align="center" style="background-color: rgba(255, 255, 255, 0.75);">
+            <div class="mt-6 slideDown" align="center" style="background-color: rgba(255, 255, 255, 0.75);">
                 <h3 class="title-notes">{{el.title}}</h3>
                 <p class="data-custom">{{el.date}}</p>
                 <p class="description-custom">{{el.description}}</p>
-                <img src="{{ el.img.url }}" >
-                <a href="{% url 'update_workout' el.id %}" class="button-marathon">Редактировать</a>
-
+                <img src="{{ el.img }}" width="1000"/><br><br>
+                {% if request.user.is_superuser == 1 %}
+                    <a href="{% url 'update_post' el.id %}" class="button-marathon">Редактировать</a>
+                    <a href="{% url 'delete_post' el.id %}" class="button-marathon">Удалить</a>
+                {% endif %}
             </div>
         {% endfor %}
     {% else %}

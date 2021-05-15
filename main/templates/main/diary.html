@@ -15,16 +15,48 @@
 {% endblock %}
 
 {% block content %}
+
+
+        <div class="sidenav">
+            {% for el in mar %}
+                 <a href="/diary/{{el.id}}">{{ el.title }}</a>
+            {% endfor %}
+        </div>
+
+
     <h1 class="custom-colored-h1" align="center">Дневник питания</h1>
     <a href="/marathon_diary">
     <img class="icon" src="../static/icons/strela.png"  width="50" height="50" alt="">
-     <div align="center"><a href="/create_diary" class="button8">Добавить запись</a></div>
+        {% if request.user.is_superuser != 1 %}
+            <div align="center"><a href="/create_diary" class="button8">Добавить запись</a></div>
+        {% else %}
+            <div align="center"><a href="">.</a></div>
+        {% endif %}
+
+            {% if request.user.is_superuser == 1 %}
+            <form class="form-inline my-2 my-lg-e" action="/diary/{{marathon_id}}">
+
+                <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="Search" name="search">
+                       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск</button>
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Фильтровать по клиенту</button>
+            </form>
+
+
+
+
+
+
+            {% endif %}
+
     {% if notes %}
         {% for el in notes %}
             <div class="mt-5 slideDown" align="center" style="background-color: rgba(255, 255, 255, 0.75);">
                 <h3 class="title-notes">{{el.title}}</h3>
                 <p type="data" class="data-custom">{{el.date}}</p>
-                <p class="description-custom">{{el.description}}</p>
+                <p class="description-custom">Завтрак:{{el.breakfast}}</p>
+                <p class="description-custom">Обед:{{el.lunch}}</p>
+                <p class="description-custom">Ужин:{{el.dinner}}</p>
+                <p class="description-custom">Перекус:{{el.snack}}</p>
                 <p class="author">{{el.user.first_name}} {{el.user.last_name}}</p>
                 <p style="color: red" class="font-widht-bolder">{{el.comment}}</p>
                 <a href="{% url 'update_diary' el.id %}" class="button-marathon">Редактировать</a>

@@ -3,6 +3,8 @@ from django import forms
 from .models import *
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
+from django.forms.fields import ImageField
+from django.forms.fields import FileInput
 
 class TitleChoiceField(forms.Form):
 
@@ -64,6 +66,97 @@ class LectionForm(ModelForm):
 
         }
 
+class PostForm(ModelForm,forms.Form):
+    class Meta:
+            model = Post
+            fields = ["title", "date", "description","img", "marathon"]
+            widgets = {
+                "title": TextInput(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Введите название'
+                }),
+                "date": DateInput(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Введите дату'
+                }),
+                "description": Textarea(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Введите описание'
+                }),
+
+                "img": TextInput(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Введите ссылку на картинку'
+                }),
+
+                "marathon": Select(attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Введите марафон'
+                }),
+
+
+    }
+
+    # img = forms.ImageField()
+
+
+class MarathonForm(ModelForm):
+    class Meta:
+        model=Marathon
+        fields=["title","season","date_start","date_end"]
+        widgets = {
+            "title": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите название'
+            }),
+            "season": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите сезон'
+            }),
+            "date_start": DateInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите дату'
+            }),
+            "date_end": DateInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите дату'
+            }),
+
+
+        }
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ["last_name","first_name","username","email","password","is_staff"]
+        widgets = {
+            "last_name": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите фамилию'
+            }),
+             "first_name": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите имя'
+            }),
+            "username": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите телефон'
+            }),
+            "email": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите email'
+            }),
+            "password": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите пароль'
+            }),
+
+        }
+
+
+
+
 class ParameterForm(ModelForm):
     class Meta:
         model = Parameter
@@ -110,17 +203,17 @@ class ParameterForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите марафон'
             }),
-            # "user": Select(attrs={
-            #     'class': 'form-control',
-            #     'placeholder': 'Введите фамилию'
-            # }),
+            #"user": Select(attrs={
+             #   'class': 'form-control',
+              #  'placeholder': 'Введите фамилию'
+            #}),
 
         }
 
 class DiaryForm(ModelForm):
     class Meta:
         model=Diary
-        fields=["title","date","description","comment","marathon","user"]
+        fields=["title","date","breakfast","lunch","dinner","snack","comment","marathon","user"]
         widgets = {
             "title": TextInput(attrs={
                 'class': 'form-control',
@@ -130,7 +223,19 @@ class DiaryForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите дату'
             }),
-            "description": Textarea(attrs={
+            "breakfast": Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите содержание'
+            }),
+            "lunch": Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите содержание'
+            }),
+            "dinner": Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите содержание'
+            }),
+            "snack": Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите содержание'
             }),
@@ -138,17 +243,41 @@ class DiaryForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите комментарий'
             }),
-            "marathon": Select(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите марафон'
-            }),
-            "user": Select(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите фамилию'
-            }),
+             # "marathon": Select(attrs={
+             #     'class': 'form-control',
+             #     'placeholder': 'Введите марафон'
+             # }),
+            #"user": Select(attrs={
+             #   'class': 'form-control',
+              #  'placeholder': 'Введите фамилию'
+            #}),
 
 
 
         }
+
+class ContractForm(ModelForm):
+    class Meta:
+        model=Contract
+        fields=["date","user","marathon"]
+        widgets = {
+            "date": DateInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите дату'
+            }),
+
+            "user": Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите клиента'
+            }),
+            "marathon": Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Введите марафон'
+            }),
+
+        }
+#
+# class ImageUploadForm(forms.Form):
+#     image = forms.ImageField()
 
 

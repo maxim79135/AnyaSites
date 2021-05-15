@@ -1,0 +1,31 @@
+{% extends 'main/base_.html' %}
+
+{% block title %}
+Марафон
+{% endblock %}
+
+{% block style %}
+   body {
+        background-image: url("../static/img/6b.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+       }
+{% endblock %}
+
+{% block content %}
+    <h1 class="custom-colored-h1" align="center">Марафон</h1>
+    <form method="post">
+        {% csrf_token %}
+        <span class="error">{{ error }}</span><br>
+        {{form.title}}<br>
+        {{form.season}}<br>
+        <input type="date"{{form.date_start}}<br>
+        <input type="date"{{form.date_end}}<br>
+        <div align="center"><button type="submit" class="c-button">Сохранить</button></div><br>
+<!--        <div align="center"><a href="/workout" class="button8">Назад</a></div>-->
+
+
+    </form>
+{% endblock %}
